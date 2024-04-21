@@ -4,15 +4,48 @@ using UnityEngine;
 
 public class DrillCraft : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] GameObject DrillTip;
+    float DrillTipRotSpeed = 75f;
+    float DrillCraftTurnSpeed = 20f;
+    float maxTurnAngle = 45f;
+
+    private Quaternion initialRotation;
+    private bool isTurning = false;
+    
     void Start()
     {
-        
+        initialRotation = transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Make the Drill rotate like it's digging(maybe add some particles later?)
+        DrillTip.transform.Rotate(Vector3.up, DrillTipRotSpeed * Time.deltaTime, Space.World);
         
+        float horizInput = Input.GetAxis("Horizontal");
+        if (horizInput != 0f)
+        {
+            isTurning = true;
+            // Get target rotation
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, horizInput * maxTurnAngle);
+            // Rotate
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, initialRotation * targetRotation, DrillCraftTurnSpeed * Time.deltaTime);
+        }
+        else if (isTurning)
+        {
+            // Check if the angle between current rotation and initial rotation is small
+            float angleDifference = Quaternion.Angle(transform.rotation, initialRotation);
+            if (angleDifference < 1f)
+            {
+                // Reset the flag when rotation is complete
+                isTurning = false;
+            }
+            else
+            {
+                // Continue rotating back to initial rotation
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, initialRotation, DrillCraftTurnSpeed * Time.deltaTime);
+            }
+        }
     }
 }
