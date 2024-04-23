@@ -84,8 +84,15 @@ public class UiController : MonoBehaviour
     }
     private void UpdateShipHealth(int health)
     {
-        SHealthBar.fillAmount = (float)health / 300f;
+        //find percent
+        float fillAmount = (float)health / 300f;
+        //update num
         SHealth.text = health.ToString();
+        //update bar by width
+        float newWidth = SHealthBar.sizeDelta.x * fillAmount;
+        Vector2 sizeDelta = SHealthBar.sizeDelta;
+        sizeDelta.x = newWidth;
+        SHealthBar.sizeDelta = sizeDelta;
     }
     private void OnPopupOpened()
     {

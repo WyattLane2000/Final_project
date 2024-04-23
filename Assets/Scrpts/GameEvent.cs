@@ -10,4 +10,7 @@ public static class GameEvent
 
     public const string PLAYER_HEALTH_CHANGED = "PLAYER_HEALTH_CHANGED";
     public const string SHIP_HEALTH_CHANGED = "SHIP_HEALTH_CHANGED";
+
+    public const string BOOST_HIT = "BOOST_HIT";
+    public const string SHIP_DAMAGE = "SHIP_DAMAGE";
 }

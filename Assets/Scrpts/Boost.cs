@@ -2,42 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwoDGameManager : MonoBehaviour
+public class Boost : MonoBehaviour
 {
-    bool isPaused = false;
-    int SHealth = 300;//ship health
+    private float speed = 3f;
+    private bool isPaused = false;
     private void Awake()
     {
         Messenger.AddListener(GameEvent.TWOD_PAUSED, PauseObject);
         Messenger.AddListener(GameEvent.TWOD_RESUMED, ResumeObject);
-        Messenger.AddListener(GameEvent.SHIP_DAMAGE, shipReactToHit);
     }
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.TWOD_PAUSED, PauseObject);
         Messenger.RemoveListener(GameEvent.TWOD_RESUMED, ResumeObject);
-        Messenger.RemoveListener(GameEvent.SHIP_DAMAGE, shipReactToHit);
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if (!isPaused)
         {
+            float horizontalInput = -Input.GetAxis("Horizontal");
+            Vector3 horizontalMovement = new Vector3(horizontalInput, 0f, 0f) * (speed*0.75f) * Time.deltaTime;
+            transform.Translate(horizontalMovement, Space.World);
 
+            Vector3 verticalMovement = Vector3.up * speed * Time.deltaTime;
+            transform.Translate(verticalMovement, Space.World);
+
+            if (transform.position.y > 10)
+            {
+                Destroy(this.gameObject);
+            }
         }
-    }
-
-    //for update ship health when worm becomes mush
-    void shipReactToHit()
-    {
-        SHealth -= 150;
-        Messenger<int>.Broadcast(GameEvent.SHIP_HEALTH_CHANGED, SHealth);
     }
 
     // Method to pause 

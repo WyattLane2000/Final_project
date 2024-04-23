@@ -61,6 +61,21 @@ public class DrillCraft : MonoBehaviour
             }
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Boost")
+        {
+            Messenger.Broadcast(GameEvent.BOOST_HIT);
+            Destroy(other.gameObject);
+        }
+
+        if (other.tag == "Worm")
+        {
+            Messenger.Broadcast(GameEvent.SHIP_DAMAGE);
+            Destroy(other.gameObject);
+        }
+    }
+
 
     // Method to pause the drill craft movement
     public void PauseObject()
