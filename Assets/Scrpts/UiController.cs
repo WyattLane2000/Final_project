@@ -79,8 +79,16 @@ public class UiController : MonoBehaviour
 
     private void UpdatePlayerHealth(int health)
     {
-        PHealthBar.fillAmount = (float)health /100f;
+        //find percent
+        float fillAmount = (float)health /100f;
+        //update num
         PHealth.text = health.ToString();
+        // Update health bar width
+        float newWidth = PHealthBar.rectTransform.rect.width * fillAmount;
+        RectTransform healthBarRectTransform = PHealthBar.rectTransform;
+        Vector2 sizeDelta = healthBarRectTransform.sizeDelta;
+        sizeDelta.x = newWidth;
+        healthBarRectTransform.sizeDelta = sizeDelta;
     }
     private void UpdateShipHealth(int health)
     {
@@ -88,11 +96,12 @@ public class UiController : MonoBehaviour
         float fillAmount = (float)health / 300f;
         //update num
         SHealth.text = health.ToString();
-        //update bar by width
-        float newWidth = SHealthBar.sizeDelta.x * fillAmount;
-        Vector2 sizeDelta = SHealthBar.sizeDelta;
+        // Update health bar width
+        float newWidth = SHealthBar.rectTransform.rect.width * fillAmount;
+        RectTransform healthBarRectTransform = SHealthBar.rectTransform;
+        Vector2 sizeDelta = healthBarRectTransform.sizeDelta;
         sizeDelta.x = newWidth;
-        SHealthBar.sizeDelta = sizeDelta;
+        healthBarRectTransform.sizeDelta = sizeDelta;
     }
     private void OnPopupOpened()
     {

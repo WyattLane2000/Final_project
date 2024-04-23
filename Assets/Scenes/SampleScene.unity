@@ -1990,8 +1990,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 54, y: -43}
-  m_SizeDelta: {x: 102.5, y: 20.707504}
+  m_AnchoredPosition: {x: 0.5, y: -43}
+  m_SizeDelta: {x: 200, y: 20.707504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1098425099
 MonoBehaviour:
@@ -2031,63 +2031,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098425097}
   m_CullTransparentMesh: 1
---- !u!1001 &1107157749
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2440826238228989004, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_Name
-      value: Worm
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.08359
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.572422
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5094472000861953319, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 21992674fe2730f46bc887ba1c03583b, type: 3}
 --- !u!1 &1348148435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,8 +2065,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 54, y: -43}
-  m_SizeDelta: {x: 102.5, y: 20.707504}
+  m_AnchoredPosition: {x: 0.5, y: -43}
+  m_SizeDelta: {x: 200, y: 20.707504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1348148437
 MonoBehaviour:
@@ -2331,8 +2274,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 54, y: -16.5}
-  m_SizeDelta: {x: 102.5, y: 20.707504}
+  m_AnchoredPosition: {x: 0.5, y: -16.5}
+  m_SizeDelta: {x: 200, y: 20.707504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1596880466
 MonoBehaviour:
@@ -3016,8 +2959,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 54, y: -16.5}
-  m_SizeDelta: {x: 102.5, y: 20.707504}
+  m_AnchoredPosition: {x: 0.5, y: -16.5}
+  m_SizeDelta: {x: 200, y: 20.707504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1730293552
 MonoBehaviour:
@@ -3537,4 +3480,3 @@ SceneRoots:
   - {fileID: 683852553}
   - {fileID: 1000429073}
   - {fileID: 2107475443}
-  - {fileID: 1107157749}

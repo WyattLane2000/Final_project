@@ -11,6 +11,7 @@ public class TwoDGameManager : MonoBehaviour
         Messenger.AddListener(GameEvent.TWOD_PAUSED, PauseObject);
         Messenger.AddListener(GameEvent.TWOD_RESUMED, ResumeObject);
         Messenger.AddListener(GameEvent.SHIP_DAMAGE, shipReactToHit);
+        Messenger.AddListener(GameEvent.REPAIR, shipRepair);
     }
     private void OnDestroy()
     {
@@ -36,7 +37,18 @@ public class TwoDGameManager : MonoBehaviour
     //for update ship health when worm becomes mush
     void shipReactToHit()
     {
-        SHealth -= 150;
+        SHealth -= 10;
+        Messenger<int>.Broadcast(GameEvent.SHIP_HEALTH_CHANGED, SHealth);
+    }
+
+    //method to restore ship health when repaired
+    void shipRepair()
+    {
+        SHealth += 30;
+        if(SHealth > 300)
+        {
+            SHealth = 300;
+        }
         Messenger<int>.Broadcast(GameEvent.SHIP_HEALTH_CHANGED, SHealth);
     }
 

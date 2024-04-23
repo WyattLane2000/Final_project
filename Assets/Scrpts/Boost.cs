@@ -19,13 +19,14 @@ public class Boost : MonoBehaviour
     void Update(){
         if (!isPaused)
         {
+            //horizontal input/movement
             float horizontalInput = -Input.GetAxis("Horizontal");
             Vector3 horizontalMovement = new Vector3(horizontalInput, 0f, 0f) * (speed*0.75f) * Time.deltaTime;
             transform.Translate(horizontalMovement, Space.World);
-
+            //vetiacal movement
             Vector3 verticalMovement = Vector3.up * speed * Time.deltaTime;
             transform.Translate(verticalMovement, Space.World);
-
+            //off screen bye bye
             if (transform.position.y > 10)
             {
                 Destroy(this.gameObject);

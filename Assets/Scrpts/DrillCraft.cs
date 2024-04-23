@@ -74,6 +74,12 @@ public class DrillCraft : MonoBehaviour
             Messenger.Broadcast(GameEvent.SHIP_DAMAGE);
             Destroy(other.gameObject);
         }
+
+        if (other.tag == "Repair")
+        {
+            Messenger.Broadcast(GameEvent.REPAIR);
+            Destroy(other.gameObject);
+        }
     }
 
 
