@@ -17,6 +17,8 @@ public class UiController : MonoBehaviour
     //[SerializeField] private GameOverPopup gameOverPopup;
     [SerializeField] private StartPopup startPopup;
 
+    bool TwoDIsPlaying = false;//to keep track of twoD pause state
+    bool ThreeDIsPlaying = false;//to keep track of 3D pause state
     private int popupsActive = 0;
     private void Awake()
     {
@@ -24,6 +26,10 @@ public class UiController : MonoBehaviour
         Messenger<int>.AddListener(GameEvent.SHIP_HEALTH_CHANGED, UpdateShipHealth);
         Messenger.AddListener(GameEvent.POPUP_OPENED, OnPopupOpened);
         Messenger.AddListener(GameEvent.POPUP_CLOSED, OnPopupClosed);
+        //to keep track of game state
+        Messenger.AddListener(GameEvent.TWOD_PLAYING, TwoDPlaying);
+        //to keep track of game state
+        Messenger.AddListener(GameEvent.THREED_PLAYING, ThreeDPlaying);
     }
     private void OnDestroy()
     {
@@ -31,6 +37,10 @@ public class UiController : MonoBehaviour
         Messenger<int>.RemoveListener(GameEvent.SHIP_HEALTH_CHANGED, UpdateShipHealth);
         Messenger.RemoveListener(GameEvent.POPUP_OPENED, OnPopupOpened);
         Messenger.RemoveListener(GameEvent.POPUP_CLOSED, OnPopupClosed);
+        //to keep track of game state
+        Messenger.RemoveListener(GameEvent.TWOD_PLAYING, TwoDPlaying);
+        //to keep track of game state
+        Messenger.RemoveListener(GameEvent.THREED_PLAYING, ThreeDPlaying);
     }
     // Start is called before the first frame update
     void Start()
@@ -60,18 +70,32 @@ public class UiController : MonoBehaviour
         if (active)
         {
             //Messenger.Broadcast(GameEvent.GAME_ACTIVE);
-            Messenger.Broadcast(GameEvent.TWOD_RESUMED);
+            if (TwoDIsPlaying)
+            {
+                Messenger.Broadcast(GameEvent.TWOD_RESUMED);
+            }
+            if (ThreeDIsPlaying)
+            {
+                Messenger.Broadcast(GameEvent.THREED_RESUMED);
+            }
             Time.timeScale = 1; // unpause the game
-            //Cursor.lockState = CursorLockMode.Locked; // lock cursor at center
+            Cursor.lockState = CursorLockMode.Locked; // lock cursor at center
             Cursor.visible = false; // hide cursor
             //crossHair.gameObject.SetActive(true); // show the crosshair
         }
         else
         {
             //Messenger.Broadcast(GameEvent.GAME_INACTIVE);
-            Messenger.Broadcast(GameEvent.TWOD_PAUSED);
+            if (TwoDIsPlaying)
+            {
+                Messenger.Broadcast(GameEvent.TWOD_PAUSED);
+            }
+            if (ThreeDIsPlaying)
+            {
+                Messenger.Broadcast(GameEvent.THREED_PAUSED);
+            }
             Time.timeScale = 0; // pause the game
-            //Cursor.lockState = CursorLockMode.None; // let cursor move freely
+            Cursor.lockState = CursorLockMode.None; // let cursor move freely
             Cursor.visible = true; // show the cursor
             //crossHair.gameObject.SetActive(false); // turn off the crosshair
         }
@@ -124,5 +148,17 @@ public class UiController : MonoBehaviour
     {
         startPopup.Open();
     }
-
+    
+    //if 3D playing set bool to show it
+    void ThreeDPlaying()
+    {
+        TwoDIsPlaying = false;
+        ThreeDIsPlaying = true;
+    }
+    //if 2D playing set bool to show it
+    void TwoDPlaying()
+    {
+        TwoDIsPlaying = true;
+        ThreeDIsPlaying = false;
+    }
 }

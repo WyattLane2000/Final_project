@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        ui.ShowStartPopup();
+        Messenger.Broadcast(GameEvent.TWOD_PAUSED);
+        Messenger.Broadcast(GameEvent.THREED_PLAYING);
+        //ui.ShowStartPopup();
     }
 
     // Update is called once per frame
