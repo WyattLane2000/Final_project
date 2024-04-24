@@ -36,14 +36,14 @@ public class WanderingAI : MonoBehaviour
         //to keep track of 3D pause state
         Messenger.AddListener(GameEvent.THREED_PAUSED, PauseObject);
         Messenger.AddListener(GameEvent.THREED_RESUMED, ResumeObject);
-        Messenger.AddListener(GameEvent.FAC_ONE_ON, FacOneOn);
+        Messenger.AddListener(GameEvent.FAC_ENEMY_ON, FacOn);
     }
     private void OnDestroy()
     {
         //to keep track of 3D pause state
         Messenger.RemoveListener(GameEvent.THREED_PAUSED, PauseObject);
         Messenger.RemoveListener(GameEvent.THREED_RESUMED, ResumeObject);
-        Messenger.RemoveListener(GameEvent.FAC_ONE_ON, FacOneOn);
+        Messenger.RemoveListener(GameEvent.FAC_ENEMY_ON, FacOn);
     }
     // Start is called before the first frame update
     void Start()
@@ -65,15 +65,14 @@ public class WanderingAI : MonoBehaviour
                 default: Debug.Log("Invalid state!"); break;
             }
         }
+        if (state == EnemyStates.dead) {
+            Update_Idle();
+        }
     }
 
     void Update_Idle()
     {
         agent.isStopped = true;                             // stop the agent (following)
-        if (distanceToTarget <= chaseRange)
-        {
-            SetState(EnemyMovingState.CHASE);
-        }
     }
 
     void Update_Chase()
@@ -144,7 +143,7 @@ public class WanderingAI : MonoBehaviour
     }
 
     //method to set chase when player enters room
-    void FacOneOn()
+    void FacOn()
     {
         SetState(EnemyMovingState.CHASE);
     }

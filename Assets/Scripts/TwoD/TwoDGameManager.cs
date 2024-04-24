@@ -5,11 +5,15 @@ using UnityEngine;
 public class TwoDGameManager : MonoBehaviour
 {
     bool isPaused = false;
-    int SHealth = 300;//ship health
+    int SHealth = 100;//ship health
     [SerializeField] GameObject wormPrefab;
     [SerializeField] GameObject boostPrefab;
     [SerializeField] GameObject repairPrefab;
     [SerializeField] Transform[] SpawnPts;
+
+    [SerializeField] GameObject dirtBackground;
+    [SerializeField] GameObject rockBackground;
+    [SerializeField] GameObject bedRockBackground;
     private GameObject[] objects;
     public int numberOfObjects = 3;
     private void Awake()
@@ -18,12 +22,16 @@ public class TwoDGameManager : MonoBehaviour
         Messenger.AddListener(GameEvent.TWOD_RESUMED, ResumeObject);
         Messenger.AddListener(GameEvent.SHIP_DAMAGE, shipReactToHit);
         Messenger.AddListener(GameEvent.REPAIR, shipRepair);
+        Messenger.AddListener(GameEvent.FAC_ONE_HIT, LevelTwo);//for changing background
+        Messenger.AddListener(GameEvent.FAC_TWO_HIT, LevelThree);//for changing background
     }
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.TWOD_PAUSED, PauseObject);
         Messenger.RemoveListener(GameEvent.TWOD_RESUMED, ResumeObject);
         Messenger.RemoveListener(GameEvent.SHIP_DAMAGE, shipReactToHit);
+        Messenger.RemoveListener(GameEvent.FAC_ONE_HIT, LevelTwo);//for changing background
+        Messenger.RemoveListener(GameEvent.FAC_TWO_HIT, LevelThree);//for changing background
     }
     // Start is called before the first frame update
     void Start()
@@ -117,9 +125,9 @@ public class TwoDGameManager : MonoBehaviour
     void shipRepair()
     {
         SHealth += 30;
-        if(SHealth > 300)
+        if(SHealth > 100)
         {
-            SHealth = 300;
+            SHealth = 100;
         }
         Messenger<int>.Broadcast(GameEvent.SHIP_HEALTH_CHANGED, SHealth);
     }
@@ -134,5 +142,18 @@ public class TwoDGameManager : MonoBehaviour
     public void ResumeObject()
     {
         isPaused = false;
+    }
+
+    //for swaping background to rock
+    void LevelTwo()
+    {
+        dirtBackground.SetActive(false);
+        rockBackground.SetActive(true);
+    }
+    //for swaping background to lava
+    void LevelThree()
+    {
+        rockBackground.SetActive(false);
+        bedRockBackground.SetActive(true);
     }
 }

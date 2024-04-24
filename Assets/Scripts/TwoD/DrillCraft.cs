@@ -80,6 +80,21 @@ public class DrillCraft : MonoBehaviour
             Messenger.Broadcast(GameEvent.REPAIR);
             Destroy(other.gameObject);
         }
+        if (other.tag == "FacOne")
+        {
+            Messenger.Broadcast(GameEvent.FAC_ONE_HIT);
+            other.gameObject.SetActive(false);
+        }
+        if (other.tag == "FacTwo")
+        {
+            Messenger.Broadcast(GameEvent.FAC_TWO_HIT);
+            other.gameObject.SetActive(false);
+        }
+        if (other.tag == "FacThree")
+        {
+            Messenger.Broadcast(GameEvent.FAC_THREE_HIT);
+            other.gameObject.SetActive(false);
+        }
     }
 
 

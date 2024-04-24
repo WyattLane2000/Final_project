@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserbeamPrefab: {fileID: 2486493252371378479, guid: 0e66a428b255f894eaa34202fcbe91ff, type: 3}
-  fireRate: 12
+  fireRate: 6
   agent: {fileID: 2659466204221312926}
   target: {fileID: 0}
 --- !u!114 &7247450019048254510

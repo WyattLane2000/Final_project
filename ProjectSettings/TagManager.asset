@@ -7,6 +7,9 @@ TagManager:
   - Boost
   - Worm
   - Repair
+  - FacOne
+  - FacTwo
+  - FacThree
   layers:
   - Default
   - TransparentFX

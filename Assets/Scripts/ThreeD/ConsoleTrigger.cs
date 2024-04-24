@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTrigger : MonoBehaviour
+public class ConsoleTrigger : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            Messenger.Broadcast(GameEvent.FAC_ENEMY_ON);
+            Messenger.Broadcast(GameEvent.SWAP_GAME);
             this.gameObject.SetActive(false);
         }
     }

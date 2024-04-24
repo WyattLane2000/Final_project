@@ -49,7 +49,7 @@ public class UiController : MonoBehaviour
         healthbarMaxW = PHealthBar.rectTransform.rect.width;
         //UpdateScore(score);
         UpdatePlayerHealth(100);
-        UpdateShipHealth(300);
+        UpdateShipHealth(100);
     }
 
     // Update is called once per frame
@@ -121,7 +121,7 @@ public class UiController : MonoBehaviour
     private void UpdateShipHealth(int health)
     {
         //find percent
-        float fillAmount = (float)health / 300f;
+        float fillAmount = (float)health / 100f;
         //update num
         SHealth.text = health.ToString();
         // Update health bar width

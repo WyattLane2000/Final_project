@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Background : MonoBehaviour
+public class TwoDFac : MonoBehaviour
 {
-    private float speed = 16f;
+    private float speed = 5f;
     private bool isPaused = false;
     private void Awake()
     {
@@ -17,17 +16,13 @@ public class Background : MonoBehaviour
         Messenger.RemoveListener(GameEvent.TWOD_PAUSED, PauseObject);
         Messenger.RemoveListener(GameEvent.TWOD_RESUMED, ResumeObject);
     }
+    // Update is called once per frame
     void Update()
     {
         if (!isPaused)
         {
             Vector3 movement = Vector3.up * speed * Time.deltaTime;
             transform.Translate(movement);
-
-            if (transform.position.y > 12)
-            {
-                transform.position += new Vector3(0, -22, 0);
-            }
         }
     }
 
