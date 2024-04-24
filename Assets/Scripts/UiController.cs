@@ -12,7 +12,7 @@ public class UiController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI PHealth;
     [SerializeField] private Image SHealthBar;
     [SerializeField] private TextMeshProUGUI SHealth;
-    //[SerializeField] private Image crossHair;
+    [SerializeField] private Image crossHair;
     [SerializeField] private OptionsPopup optionsPopup;
     //[SerializeField] private GameOverPopup gameOverPopup;
     [SerializeField] private StartPopup startPopup;
@@ -20,6 +20,7 @@ public class UiController : MonoBehaviour
     bool TwoDIsPlaying = false;//to keep track of twoD pause state
     bool ThreeDIsPlaying = false;//to keep track of 3D pause state
     private int popupsActive = 0;
+    float healthbarMaxW;
     private void Awake()
     {
         Messenger<int>.AddListener(GameEvent.PLAYER_HEALTH_CHANGED, UpdatePlayerHealth);
@@ -45,6 +46,7 @@ public class UiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthbarMaxW = PHealthBar.rectTransform.rect.width;
         //UpdateScore(score);
         UpdatePlayerHealth(100);
         UpdateShipHealth(300);
@@ -76,12 +78,13 @@ public class UiController : MonoBehaviour
             }
             if (ThreeDIsPlaying)
             {
+
+                crossHair.gameObject.SetActive(true); // show the crosshair
                 Messenger.Broadcast(GameEvent.THREED_RESUMED);
             }
             Time.timeScale = 1; // unpause the game
             Cursor.lockState = CursorLockMode.Locked; // lock cursor at center
             Cursor.visible = false; // hide cursor
-            //crossHair.gameObject.SetActive(true); // show the crosshair
         }
         else
         {
@@ -92,12 +95,13 @@ public class UiController : MonoBehaviour
             }
             if (ThreeDIsPlaying)
             {
+
+                crossHair.gameObject.SetActive(false); // turn off the crosshair
                 Messenger.Broadcast(GameEvent.THREED_PAUSED);
             }
             Time.timeScale = 0; // pause the game
             Cursor.lockState = CursorLockMode.None; // let cursor move freely
             Cursor.visible = true; // show the cursor
-            //crossHair.gameObject.SetActive(false); // turn off the crosshair
         }
     }
 
@@ -108,7 +112,7 @@ public class UiController : MonoBehaviour
         //update num
         PHealth.text = health.ToString();
         // Update health bar width
-        float newWidth = PHealthBar.rectTransform.rect.width * fillAmount;
+        float newWidth = healthbarMaxW * fillAmount;
         RectTransform healthBarRectTransform = PHealthBar.rectTransform;
         Vector2 sizeDelta = healthBarRectTransform.sizeDelta;
         sizeDelta.x = newWidth;
@@ -121,7 +125,7 @@ public class UiController : MonoBehaviour
         //update num
         SHealth.text = health.ToString();
         // Update health bar width
-        float newWidth = SHealthBar.rectTransform.rect.width * fillAmount;
+        float newWidth = healthbarMaxW * fillAmount;
         RectTransform healthBarRectTransform = SHealthBar.rectTransform;
         Vector2 sizeDelta = healthBarRectTransform.sizeDelta;
         sizeDelta.x = newWidth;
@@ -154,11 +158,13 @@ public class UiController : MonoBehaviour
     {
         TwoDIsPlaying = false;
         ThreeDIsPlaying = true;
+        crossHair.gameObject.SetActive(true);
     }
     //if 2D playing set bool to show it
     void TwoDPlaying()
     {
         TwoDIsPlaying = true;
         ThreeDIsPlaying = false;
+        crossHair.gameObject.SetActive(false);
     }
 }

@@ -73,6 +73,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1696014694992928748, guid: d079cd0e6137a44b58864c3a91ad119a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7247450019048254510}
+    - targetCorrespondingSourceObject: {fileID: 1696014694992928748, guid: d079cd0e6137a44b58864c3a91ad119a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2659466204221312926}
   m_SourcePrefab: {fileID: 100100000, guid: d079cd0e6137a44b58864c3a91ad119a, type: 3}
 --- !u!1 &2000899914410863005 stripped
 GameObject:
@@ -115,7 +118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserbeamPrefab: {fileID: 2486493252371378479, guid: 0e66a428b255f894eaa34202fcbe91ff, type: 3}
-  fireRate: 4
+  fireRate: 12
+  agent: {fileID: 2659466204221312926}
+  target: {fileID: 0}
 --- !u!114 &7247450019048254510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +133,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0e628f60d94844480c316b38bc9fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &2659466204221312926
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000899914410863005}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

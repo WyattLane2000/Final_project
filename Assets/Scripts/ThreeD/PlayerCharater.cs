@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCharater : MonoBehaviour
 {
     private int health;
-    private int maxHealth = 10;
+    private int maxHealth = 100;
 
     private void Awake()
     {

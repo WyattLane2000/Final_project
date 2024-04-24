@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2024317096043350195}
   - component: {fileID: 2511862482114140221}
   - component: {fileID: -3120307407810820644}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LaserBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9139169700093023116}
   - component: {fileID: 2115938187220989365}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -22,4 +22,7 @@ public static class GameEvent
     public const string THREED_PLAYING = "THREED_PLAYING";
 
     public const string ROBO_ENEMY_DEAD = "ROBO_ENEMY_DEAD";
+    public const string FAC_ONE_ON = "FAC_ONE_ON";
+    public const string AIRLOCK_SWITCH = "AIRLOCK_SWITCH";
+    public const string FAC_ONE_COLLECTED = "FAC_ONE_COLLECTED";
 }

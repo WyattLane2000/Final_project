@@ -16,14 +16,14 @@ public class OperateDoor : MonoBehaviour
 
     public void Operate()
     {
+        doorIsOpen = !doorIsOpen;
         if (doorIsOpen)
-        {
-            iTween.MoveTo(this.gameObject, homePos, moveTime);
-        }
-        else
         {
             iTween.MoveTo(this.gameObject, homePos + closeOffset, moveTime);
         }
-        doorIsOpen = !doorIsOpen;
+        else
+        {
+            iTween.MoveTo(this.gameObject, homePos, moveTime);
+        }
     }
 }
