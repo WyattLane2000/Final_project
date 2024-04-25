@@ -14,13 +14,32 @@ public class UiController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SHealth;
     [SerializeField] private Image crossHair;
     [SerializeField] private OptionsPopup optionsPopup;
-    //[SerializeField] private GameOverPopup gameOverPopup;
+    //gameOver varibles
+    [SerializeField] private GameOverPopup gameOverPopup;
+    [SerializeField] TextMeshProUGUI wormKillsScoreGo;
+    [SerializeField] TextMeshProUGUI roboKillsScoreGo;
+    [SerializeField] TextMeshProUGUI boostsScoreGo;
+    [SerializeField] TextMeshProUGUI repairsScoreGo;
+    //gameCleared varibles
+    [SerializeField] private GameClearedPopup gameClearedPopup;
+    [SerializeField] TextMeshProUGUI wormKillsScoreGc;
+    [SerializeField] TextMeshProUGUI roboKillsScoreGc;
+    [SerializeField] TextMeshProUGUI boostsScoreGc;
+    [SerializeField] TextMeshProUGUI repairsScoreGc;
+    //start Varibles
     [SerializeField] private StartPopup startPopup;
+    //audio Varibles
+    [SerializeField] AudioClip menuMusic;
+    [SerializeField] AudioClip gameMusic;
 
     bool TwoDIsPlaying = false;//to keep track of twoD pause state
     bool ThreeDIsPlaying = false;//to keep track of 3D pause state
-    private int popupsActive = 0;
-    float healthbarMaxW;
+    private int popupsActive = 0; //for ui control
+    float healthbarMaxW; //for health update
+    int roboKillCount = 0;//end game stat
+    int wormKillCount = 0;//end game stat
+    int boostsHit = 0;//end game stat
+    int repairsHit = 0;//end game stat
     private void Awake()
     {
         Messenger<int>.AddListener(GameEvent.PLAYER_HEALTH_CHANGED, UpdatePlayerHealth);
@@ -31,6 +50,10 @@ public class UiController : MonoBehaviour
         Messenger.AddListener(GameEvent.TWOD_PLAYING, TwoDPlaying);
         //to keep track of game state
         Messenger.AddListener(GameEvent.THREED_PLAYING, ThreeDPlaying);
+        Messenger.AddListener(GameEvent.ROBO_ENEMY_DEAD, RoboKill);//for roboKillCount
+        Messenger.AddListener(GameEvent.WORM_KILL, WormKill);//for wormKillCount
+        Messenger.AddListener(GameEvent.BOOST_HIT, BoostsHit);//for boostsHit
+        Messenger.AddListener(GameEvent.REPAIR, RepairsHit);// for repairsHit
     }
     private void OnDestroy()
     {
@@ -42,12 +65,15 @@ public class UiController : MonoBehaviour
         Messenger.RemoveListener(GameEvent.TWOD_PLAYING, TwoDPlaying);
         //to keep track of game state
         Messenger.RemoveListener(GameEvent.THREED_PLAYING, ThreeDPlaying);
+        Messenger.RemoveListener(GameEvent.ROBO_ENEMY_DEAD, RoboKill);//for roboKillCount
+        Messenger.RemoveListener(GameEvent.SHIP_DAMAGE, WormKill);//for wormKillCount
+        Messenger.RemoveListener(GameEvent.BOOST_HIT, BoostsHit);//for boostsHit
+        Messenger.RemoveListener(GameEvent.REPAIR, RepairsHit);// for repairsHit
     }
     // Start is called before the first frame update
     void Start()
     {
         healthbarMaxW = PHealthBar.rectTransform.rect.width;
-        //UpdateScore(score);
         UpdatePlayerHealth(100);
         UpdateShipHealth(100);
     }
@@ -71,7 +97,6 @@ public class UiController : MonoBehaviour
     {
         if (active)
         {
-            //Messenger.Broadcast(GameEvent.GAME_ACTIVE);
             if (TwoDIsPlaying)
             {
                 Messenger.Broadcast(GameEvent.TWOD_RESUMED);
@@ -85,10 +110,10 @@ public class UiController : MonoBehaviour
             Time.timeScale = 1; // unpause the game
             Cursor.lockState = CursorLockMode.Locked; // lock cursor at center
             Cursor.visible = false; // hide cursor
+            SoundManager.Instance.PlayMusic(gameMusic);//play aproriate music
         }
         else
         {
-            //Messenger.Broadcast(GameEvent.GAME_INACTIVE);
             if (TwoDIsPlaying)
             {
                 Messenger.Broadcast(GameEvent.TWOD_PAUSED);
@@ -102,6 +127,7 @@ public class UiController : MonoBehaviour
             Time.timeScale = 0; // pause the game
             Cursor.lockState = CursorLockMode.None; // let cursor move freely
             Cursor.visible = true; // show the cursor
+            SoundManager.Instance.PlayMusic(menuMusic);//play aproriate music
         }
     }
 
@@ -166,5 +192,46 @@ public class UiController : MonoBehaviour
         TwoDIsPlaying = true;
         ThreeDIsPlaying = false;
         crossHair.gameObject.SetActive(false);
+    }
+    //On game over show and update stats
+    public void ShowGameOver()
+    {
+        crossHair.gameObject.SetActive(false);
+        gameOverPopup.Open();
+        roboKillsScoreGo.text = roboKillCount.ToString();
+        wormKillsScoreGo.text = wormKillCount.ToString();
+        repairsScoreGo.text = repairsHit.ToString();
+        boostsScoreGo.text = boostsHit.ToString();
+    }
+    //On game clear show and update stats
+    public void ShowGameCleared()
+    {
+        crossHair.gameObject.SetActive(false);
+        gameClearedPopup.Open();
+        roboKillsScoreGc.text = roboKillCount.ToString();
+        wormKillsScoreGc.text = wormKillCount.ToString();
+        repairsScoreGc.text = repairsHit.ToString();
+        boostsScoreGc.text = boostsHit.ToString();
+    }
+
+    //for counting robot kills
+    void RoboKill()
+    {
+        roboKillCount++;
+    }
+    //for counting worm kills
+    void WormKill()
+    {
+        wormKillCount++;
+    }
+    //for counting Boosts hit
+    void BoostsHit()
+    {
+        boostsHit++;
+    }
+    //for counting Repairs hit
+    void RepairsHit()
+    {
+        repairsHit++;
     }
 }

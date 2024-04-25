@@ -43,6 +43,7 @@ public class DrillTurret : MonoBehaviour
             //spawn bullet on left mouse click
             if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
             {
+                Messenger.Broadcast(GameEvent.PLAY_SFX);
                 nextFire = Time.time + fireRate;
                 bullet = Instantiate(bulletPrefab) as GameObject;
                 bullet.transform.position = transform.TransformPoint(0, -2.8f, -1f);

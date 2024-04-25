@@ -13,15 +13,17 @@ public static class GameEvent
     public const string PLAYER_HEALTH_CHANGED = "PLAYER_HEALTH_CHANGED";//update player health
     public const string SHIP_HEALTH_CHANGED = "SHIP_HEALTH_CHANGED";//update ship health
     public const string PLAYER_DEAD = "PLAYER_DEAD";//end game
+    public const string SHIP_DEAD = "SHIP_DEAD";//end game
 
     public const string BOOST_HIT = "BOOST_HIT";//boost pickup
-    public const string SHIP_DAMAGE = "SHIP_DAMAGE";
+    public const string SHIP_DAMAGE = "SHIP_DAMAGE";//worm hit ship
     public const string REPAIR = "REPAIR";//repair pickup
 
     public const string TWOD_PLAYING = "TWOD_PLAYING";//ui pause state control
     public const string THREED_PLAYING = "THREED_PLAYING";//ui pause state control
 
     public const string ROBO_ENEMY_DEAD = "ROBO_ENEMY_DEAD";//to increase count
+    public const string WORM_KILL = "WORM_KILL";//to increase count
     public const string FAC_ENEMY_ON = "FAC_ENEMY_ON";//turn on Fac's enemys
     public const string AIRLOCK_SWITCH = "AIRLOCK_SWITCH";//swap doors close/open
     public const string FAC_ONE_COLLECTED = "FAC_ONE_COLLECTED";//to collect cyrstal
@@ -31,4 +33,9 @@ public static class GameEvent
     public const string FAC_TWO_HIT = "FAC_TWO_HIT";//to activate fac 2 and swap to 3D
     public const string FAC_THREE_HIT = "FAC_THREE_HIT";//to activate fac 3 and swap to 3D
     public const string SWAP_GAME = "SWAP_GAME";//to swap back to 2D
+
+    public const string GAME_CLEARED = "GAME_CLEARED";//for showing winning popup
+    public const string RESTART_GAME = "RESTART_GAME";//for start again button
+
+    public const string PLAY_SFX = "PLAY_SFX";//to play laserSfx on projectile fired
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,32 +11,41 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject twoDFacThree;
     [SerializeField] GameObject twoDCamera;
     [SerializeField] GameObject threeDCamera;
+    [SerializeField] GameObject endGameCamera;
+    [SerializeField] AudioClip sfxLaser;
     private float MilesTraveled = 0;
     // Start is called before the first frame update
     private bool TwoDIsPaused = false;
-    int roboKillCount = 0;
     int levelCount = 0;
     private void Awake()
     {
-        Messenger.AddListener(GameEvent.TWOD_PAUSED, PauseTwoDCode);
-        Messenger.AddListener(GameEvent.TWOD_RESUMED, ResumeTwoDCode);
-        Messenger.AddListener(GameEvent.BOOST_HIT, BoostedScore);
-        Messenger.AddListener(GameEvent.ROBO_ENEMY_DEAD, RoboKill);
+        Messenger.AddListener(GameEvent.TWOD_PAUSED, PauseTwoDCode);//to pause the increase of milesTraveled
+        Messenger.AddListener(GameEvent.TWOD_RESUMED, ResumeTwoDCode);//to resume the increase of milesTraveled
+        Messenger.AddListener(GameEvent.BOOST_HIT, BoostedScore);// increase milesTraveled
         Messenger.AddListener(GameEvent.FAC_ONE_HIT, StartThreeD); //for swaping to 3D
         Messenger.AddListener(GameEvent.FAC_TWO_HIT, StartThreeD); //for swaping to 3D
         Messenger.AddListener(GameEvent.FAC_THREE_HIT, StartThreeD); //for swaping to 3D
         Messenger.AddListener(GameEvent.SWAP_GAME, SwapGame);//for swaping back to 2D
+        Messenger.AddListener(GameEvent.PLAYER_DEAD, GameOver);//to end game if player dead
+        Messenger.AddListener(GameEvent.SHIP_DEAD, GameOver);//to end game if Ship destroyed
+        Messenger.AddListener(GameEvent.GAME_CLEARED, GameCleared);//to end game if collected all cyrstals
+        Messenger.AddListener(GameEvent.RESTART_GAME, RestartGame);//to restart game
+        Messenger.AddListener(GameEvent.PLAY_SFX, OnPlaySfx);//to play laserSfx on projectile fired
     }
     private void OnDestroy()
     {
-        Messenger.RemoveListener(GameEvent.TWOD_PAUSED, PauseTwoDCode);
-        Messenger.RemoveListener(GameEvent.TWOD_RESUMED, ResumeTwoDCode);
-        Messenger.RemoveListener(GameEvent.BOOST_HIT, BoostedScore);
-        Messenger.RemoveListener(GameEvent.ROBO_ENEMY_DEAD, RoboKill);
+        Messenger.RemoveListener(GameEvent.TWOD_PAUSED, PauseTwoDCode);//to pause the increase of milesTraveled
+        Messenger.RemoveListener(GameEvent.TWOD_RESUMED, ResumeTwoDCode);//to resume the increase of milesTraveled
+        Messenger.RemoveListener(GameEvent.BOOST_HIT, BoostedScore);// increase milesTraveled
         Messenger.RemoveListener(GameEvent.FAC_ONE_HIT, StartThreeD);//for swaping to 3D
         Messenger.RemoveListener(GameEvent.FAC_TWO_HIT, StartThreeD);//for swaping to 3D
         Messenger.RemoveListener(GameEvent.FAC_THREE_HIT, StartThreeD);//for swaping to 3D
         Messenger.RemoveListener(GameEvent.SWAP_GAME, SwapGame);//for swaping back to 2D
+        Messenger.RemoveListener(GameEvent.PLAYER_DEAD, GameOver);//to end game if player dead
+        Messenger.RemoveListener(GameEvent.SHIP_DEAD, GameOver);//to end game if Ship destroyed
+        Messenger.RemoveListener(GameEvent.GAME_CLEARED, GameCleared);//to end game if collected all cyrstals
+        Messenger.RemoveListener(GameEvent.RESTART_GAME, RestartGame);//to restart game
+        Messenger.RemoveListener(GameEvent.PLAY_SFX, OnPlaySfx);//to play laserSfx on projectile fired
     }
 
     void Start()
@@ -87,12 +97,6 @@ public class GameManager : MonoBehaviour
         ui.UpdateScore(roundedMilesTraveled);
     }
 
-    //for counting robot kills
-    void RoboKill()
-    {
-        roboKillCount++;
-    }
-
     //for activating FacOne and swaping to 3D
     void StartThreeD()
     {
@@ -112,5 +116,38 @@ public class GameManager : MonoBehaviour
         Messenger.Broadcast(GameEvent.TWOD_RESUMED);
         twoDCamera.SetActive(true);
         threeDCamera.SetActive(false);
+    }
+
+    //show game over on death of player/ship
+    void GameOver()
+    {
+        Messenger.Broadcast(GameEvent.THREED_PAUSED);
+        Messenger.Broadcast(GameEvent.TWOD_PAUSED);
+        twoDCamera.SetActive(false);
+        threeDCamera.SetActive(false);
+        endGameCamera.SetActive(true);
+        ui.ShowGameOver();
+    }
+    //show game over on death of player/ship
+    void GameCleared()
+    {
+        Messenger.Broadcast(GameEvent.THREED_PAUSED);
+        Messenger.Broadcast(GameEvent.TWOD_PAUSED);
+        twoDCamera.SetActive(false);
+        threeDCamera.SetActive(false);
+        endGameCamera.SetActive(true);
+        ui.ShowGameCleared();
+    }
+
+    //to restart game
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    //to play laserSfx on projectile fired
+    void OnPlaySfx()
+    {
+        SoundManager.Instance.PlaySfx(sfxLaser);
     }
 }

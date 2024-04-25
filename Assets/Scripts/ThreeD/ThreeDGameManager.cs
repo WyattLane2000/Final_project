@@ -36,18 +36,7 @@ public class ThreeDGameManager : MonoBehaviour
         Messenger.RemoveListener(GameEvent.FAC_TWO_HIT, SpawnFacTwo);//for setting fac2 to active and opening door
         Messenger.RemoveListener(GameEvent.FAC_THREE_HIT, SpawnFacThree);//for setting fac3 to active and opening door
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     //method to run airlock
     void AirlockSwitch()
     {
@@ -88,6 +77,7 @@ public class ThreeDGameManager : MonoBehaviour
         doorTrigger.SetActive(true);
         consoleTrigger.SetActive(true);
         cyrstalsCount++;
+        Messenger.Broadcast(GameEvent.GAME_CLEARED);
     }
     //for setting facOne to active and opening door
     void SpawnFacOne()

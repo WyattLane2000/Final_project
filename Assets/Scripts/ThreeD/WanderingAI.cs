@@ -91,6 +91,7 @@ public class WanderingAI : MonoBehaviour
                 // Spherecast hit Player, fire laser!
                 if (laserbeam == null && Time.time > nextFire)
                 {
+                    Messenger.Broadcast(GameEvent.PLAY_SFX);
                     nextFire = Time.time + fireRate;
                     laserbeam = Instantiate(laserbeamPrefab) as GameObject;
                     laserbeam.transform.position = transform.TransformPoint(0, 1.5f, 1.5f);

@@ -17,6 +17,7 @@ public class Worm : MonoBehaviour
     {
         Messenger.RemoveListener(GameEvent.TWOD_PAUSED, PauseObject);
         Messenger.RemoveListener(GameEvent.TWOD_RESUMED, ResumeObject);
+        Messenger.Broadcast(GameEvent.WORM_KILL);//for end game stat
     }
 
     // Update is called once per frame

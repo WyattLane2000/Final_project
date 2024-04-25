@@ -119,12 +119,16 @@ public class TwoDGameManager : MonoBehaviour
     {
         SHealth -= 10;
         Messenger<int>.Broadcast(GameEvent.SHIP_HEALTH_CHANGED, SHealth);
+        if (SHealth <= 0)
+        {
+            Messenger.Broadcast(GameEvent.SHIP_DEAD);
+        }
     }
 
     //method to restore ship health when repaired
     void shipRepair()
     {
-        SHealth += 30;
+        SHealth += 20;
         if(SHealth > 100)
         {
             SHealth = 100;

@@ -25,9 +25,8 @@ public class PlayerCharater : MonoBehaviour
     {
         health -= 10;
         Messenger<int>.Broadcast(GameEvent.PLAYER_HEALTH_CHANGED, health);
-        if (health == 0)
+        if (health <= 0)
         {
-            //Debug.Break();
             Messenger.Broadcast(GameEvent.PLAYER_DEAD);
         }
     }
