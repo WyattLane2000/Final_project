@@ -5,7 +5,7 @@ using UnityEngine;
 public class DrillTurret : MonoBehaviour
 {
     bool isPaused = false;//to keep track of twoD pause state
-    float rotationSpeed = 500f;
+    public float sensitivityHoriz = 1.0f;
 
     [SerializeField] private GameObject bulletPrefab;
     private GameObject bullet;
@@ -35,11 +35,9 @@ public class DrillTurret : MonoBehaviour
         //to Check twoD pause state
         if (!isPaused)
         {
-            // Get horizontal movement of the mouse
-            float mouseX = Input.GetAxis("Mouse X");
-            // Rotate along the Z-axis based on mouse movement
-            transform.Rotate(Vector3.forward, mouseX * rotationSpeed * Time.deltaTime);
-            
+            float deltaHoriz = Input.GetAxis("Mouse X") * sensitivityHoriz;
+            transform.Rotate(Vector3.forward * deltaHoriz);
+
             //spawn bullet on left mouse click
             if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
             {
