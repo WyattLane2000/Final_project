@@ -66,7 +66,7 @@ public class UiController : MonoBehaviour
         //to keep track of game state
         Messenger.RemoveListener(GameEvent.THREED_PLAYING, ThreeDPlaying);
         Messenger.RemoveListener(GameEvent.ROBO_ENEMY_DEAD, RoboKill);//for roboKillCount
-        Messenger.RemoveListener(GameEvent.SHIP_DAMAGE, WormKill);//for wormKillCount
+        Messenger.RemoveListener(GameEvent.WORM_KILL, WormKill);//for wormKillCount
         Messenger.RemoveListener(GameEvent.BOOST_HIT, BoostsHit);//for boostsHit
         Messenger.RemoveListener(GameEvent.REPAIR, RepairsHit);// for repairsHit
     }
